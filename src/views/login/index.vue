@@ -1,4 +1,4 @@
-<tmeplate>登录</tmeplate>
+<template>登录</template>
 
 <script setup lang="ts"></script>
 
