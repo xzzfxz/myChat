@@ -7,7 +7,7 @@
   "main": "dist-electron/main/index.js",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc && vite build && electron-builder --config ./config/index.json",
+    "build": "vue-tsc && vite build && electron-builder --config ./config/default/index.json",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "@vitejs/plugin-vue": "^4.1.0",
     "electron": "^23.1.4",
     "electron-builder": "^23.6.0",
+    "electron-devtools-installer": "^3.2.0",
     "typescript": "^4.9.3",
     "unplugin-vue-components": "^0.24.1",
     "vite": "^4.2.0",
