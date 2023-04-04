@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 
 const createWindow = () => {
@@ -15,9 +15,10 @@ const createWindow = () => {
     },
   });
   if (app.isPackaged) {
-    win.loadFile(path.join(__dirname, './index.html'), { hash: 'login' });
+    win.loadFile(path.join(__dirname, '../front/index.html'), { hash: 'login' });
+    win.webContents.openDevTools();
   } else {
-    const url = 'http://localhost:5173/';
+    const url = 'http://localhost:5173/#/login';
     win.webContents.openDevTools();
     win.loadURL(url);
   }
@@ -26,3 +27,10 @@ const createWindow = () => {
 app.whenReady().then(() => {
   createWindow();
 });
+
+// 监听渲染层的事件(双向)
+ipcMain.handle('eventName', async (e: Event, data: string) => {
+  return {};
+});
+// 单向
+ipcMain.on('sendEvent', (e: Event, data: any) => {})
