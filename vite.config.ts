@@ -11,7 +11,7 @@ export default defineConfig(({ command }) => {
   const isBuild = command === 'build';
   return {
     build: {
-      outDir: join(__dirname, '/dist-electron/front')
+      outDir: join(__dirname, '/dist-electron/front'),
     },
     plugins: [
       vue(),

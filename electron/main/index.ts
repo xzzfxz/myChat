@@ -11,12 +11,13 @@ const createWindow = () => {
       contextIsolation: true,
       // 渲染进程使用Node API
       nodeIntegration: false,
-      preload: '../main/index.js',
+      preload: path.join(__dirname, '../preload/index.js'),
     },
   });
   if (app.isPackaged) {
-    win.loadFile(path.join(__dirname, '../front/index.html'), { hash: 'login' });
-    win.webContents.openDevTools();
+    win.loadFile(path.join(__dirname, '../front/index.html'), {
+      hash: 'login',
+    });
   } else {
     const url = 'http://localhost:5173/#/login';
     win.webContents.openDevTools();
@@ -33,4 +34,4 @@ ipcMain.handle('eventName', async (e: Event, data: string) => {
   return {};
 });
 // 单向
-ipcMain.on('sendEvent', (e: Event, data: any) => {})
+ipcMain.on('sendEvent', (e: Event, data: any) => {});
