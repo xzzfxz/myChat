@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import installExtension, { VUEJS_DEVTOOLS } from 'electron-devtools-installer';
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -26,6 +27,7 @@ const createWindow = () => {
 };
 
 app.whenReady().then(() => {
+  installExtension(VUEJS_DEVTOOLS);
   createWindow();
 });
 

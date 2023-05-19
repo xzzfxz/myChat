@@ -1,9 +1,11 @@
-import { message } from 'ant-design-vue';
+import { ElMessage } from 'element-plus';
 import axios, { AxiosRequestConfig } from 'axios';
 
 export const instance = axios.create({
   timeout: 30000,
 });
+
+const defaultErrMsg = '出现错误，请稍后重试';
 
 instance.interceptors.response.use(
   (response) => {
@@ -18,8 +20,8 @@ instance.interceptors.response.use(
         // 接口返回成功
         return response.data.result;
       }
-      message.error('出现错误，请稍后重试');
-      return Promise.reject('出现错误，请稍后重试');
+      ElMessage.error(defaultErrMsg);
+      return Promise.reject(defaultErrMsg);
     }
     return Promise.reject(response.statusText);
   },
@@ -30,13 +32,13 @@ instance.interceptors.response.use(
       return error?.response?.data;
     }
     // 条件为不弹窗
-    if (
-      error?.message?.type !== 'cancel' && // 取消请求
-      !error?.message?.includes('timeout') && // 连接超时
-      error?.message !== 'Network Error' // 网络错误
-    ) {
-      message.error('出现错误，请稍后重试');
-    }
+    // if (
+    //   error?.message?.type !== 'cancel' && // 取消请求
+    //   !error?.message?.includes('timeout') && // 连接超时
+    //   error?.message !== 'Network Error' // 网络错误
+    // ) {
+    ElMessage.error(error?.response?.data?.msg || defaultErrMsg);
+    // }
     return Promise.reject(error);
   }
 );

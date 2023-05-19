@@ -1,27 +1,27 @@
 <template>
   <div class="container">
     <div class="form-line">
-      <span class="label">用户名：</span
-      ><a-input class="input" v-model:value="state.registerParams.username" />
+      <span class="label">用户名：</span>
+      <el-input class="input" v-model="state.registerParams.username" />
     </div>
     <div class="form-line">
-      <span class="label">密码：</span
-      ><a-input class="input" v-model:value="state.registerParams.password" />
+      <span class="label">密码：</span>
+      <el-input class="input" v-model:value="state.registerParams.password" />
     </div>
     <div class="form-line">
-      <span class="label">确认密码：</span
-      ><a-input class="input" v-model:value="state.registerParams.rePassword" />
+      <span class="label">确认密码：</span>
+      <el-input class="input" v-model:value="state.registerParams.rePassword" />
       <span class="error-msg" v-if="state.showRePwd">两次密码输入不一致</span>
     </div>
     <div class="btn-container">
-      <a-button @click="handleRegister">注册</a-button>
+      <el-button @click="handleRegister">注册</el-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { message } from 'ant-design-vue';
+import { ElMessage } from 'element-plus';
 
 const state = reactive({
   registerParams: {
@@ -35,7 +35,7 @@ const state = reactive({
 // 注册
 const handleRegister = () => {
   console.log('注册成功');
-  message.success('注册成功');
+  ElMessage.success('注册成功');
 };
 </script>
 
