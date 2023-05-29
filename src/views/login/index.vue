@@ -6,11 +6,11 @@
     </div>
     <div class="form-line">
       <span class="label">密码：</span>
-      <el-input class="input" v-model:value="state.registerParams.password" />
+      <el-input class="input" v-model="state.registerParams.password" />
     </div>
     <div class="form-line">
       <span class="label">确认密码：</span>
-      <el-input class="input" v-model:value="state.registerParams.rePassword" />
+      <el-input class="input" v-model="state.registerParams.rePassword" />
       <span class="error-msg" v-if="state.showRePwd">两次密码输入不一致</span>
     </div>
     <div class="btn-container">
@@ -22,6 +22,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 import { ElMessage } from 'element-plus';
+import Message from '@/utils/message';
 
 const state = reactive({
   registerParams: {
@@ -35,7 +36,8 @@ const state = reactive({
 // 注册
 const handleRegister = () => {
   console.log('注册成功');
-  ElMessage.success('注册成功');
+  // ElMessage.success('注册成功');
+  Message.success('测试');
 };
 </script>
 
