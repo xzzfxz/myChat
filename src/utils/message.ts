@@ -8,18 +8,18 @@ enum MESSAGE_TYPE {
   ERROR = 'error',
 }
 
-export class Message {
-  static messageList: MessageHandler[] = [];
-  static limit: number = 3;
+const messageList: MessageHandler[] = [];
+const limit: number = 3;
 
+const createMessageInstance = () => {
   /**
    * @description: 判断是否超过最大数量
    * @return {*}
    */
-  static judgeCount() {
-    if (this.messageList.length >= this.limit) {
+  function judgeCount() {
+    if (messageList.length >= limit) {
       // 超过最大数，关闭最先弹出的
-      const firstInstance = this.messageList.shift();
+      const firstInstance = messageList.shift();
       firstInstance?.close();
     }
   }
@@ -31,59 +31,77 @@ export class Message {
    * @param {AppContext} appContext
    * @return {*}
    */
-  static showMessageByType(
+  function showMessageByType(
     type: MESSAGE_TYPE,
     options?: MessageParamsWithType,
     appContext?: AppContext | null | undefined
   ) {
-    this.judgeCount();
+    judgeCount();
     const instanse = ElMessage[type](options, appContext);
-    this.messageList.push(instanse);
+    messageList.push(instanse);
+  }
+
+  function baseFunc(
+    options?: MessageParamsWithType,
+    appContext?: AppContext | null | undefined
+  ) {
+    judgeCount();
+    const instanse = ElMessage(options, appContext);
+    messageList.push(instanse);
   }
 
   /**
    * @description: 成功消息
    * @return {*}
    */
-  static success(
+  function success(
     options?: MessageParamsWithType,
     appContext?: AppContext | null | undefined
   ) {
-    this.showMessageByType(MESSAGE_TYPE.SUCCESS, options, appContext);
+    showMessageByType(MESSAGE_TYPE.SUCCESS, options, appContext);
   }
 
   /**
    * @description: 警告
    * @return {*}
    */
-  static warning(
+  function warning(
     options?: MessageParamsWithType,
     appContext?: AppContext | null | undefined
   ) {
-    this.showMessageByType(MESSAGE_TYPE.WARNING, options, appContext);
+    showMessageByType(MESSAGE_TYPE.WARNING, options, appContext);
   }
 
   /**
    * @description: 信息
    * @return {*}
    */
-  static info(
+  function info(
     options?: MessageParamsWithType,
     appContext?: AppContext | null | undefined
   ) {
-    this.showMessageByType(MESSAGE_TYPE.INFO, options, appContext);
+    showMessageByType(MESSAGE_TYPE.INFO, options, appContext);
   }
 
   /**
    * @description: 错误
    * @return {*}
    */
-  static error(
+  function error(
     options?: MessageParamsWithType,
     appContext?: AppContext | null | undefined
   ) {
-    this.showMessageByType(MESSAGE_TYPE.ERROR, options, appContext);
+    showMessageByType(MESSAGE_TYPE.ERROR, options, appContext);
   }
-}
+
+  baseFunc.success = success;
+  baseFunc.warning = warning;
+  baseFunc.info = info;
+  baseFunc.info = info;
+
+  return baseFunc;
+};
+
+export const Message = createMessageInstance();
 
 export default Message;

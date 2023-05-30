@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
-import { ElMessage } from 'element-plus';
 import Message from '@/utils/message';
 
 const state = reactive({
@@ -36,8 +35,7 @@ const state = reactive({
 // 注册
 const handleRegister = () => {
   console.log('注册成功');
-  // ElMessage.success('注册成功');
-  Message.success('测试');
+  Message({ type: 'success', message: '测试' });
 };
 </script>
 
